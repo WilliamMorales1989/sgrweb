@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Perfiles";
+}
+
+@model IEnumerable<WebApplication1.Models.ListaBodega>
+
+<h2 class="Tituloh2">@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+
+<select id="primera-lista" name="select"></select>
+<select id="segunda-lista"></select>
+
+<a class="perfilEnviar" onclick="SetTextBoxValue()">Ingresar</a>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        @using System.Web.Script.Serialization
+    $(document).on("ready", function () {
+
+        $.ajax({
+            url: '@Url.Action("getCategorias")' + "?perfil=" + @Html.Encode(ViewData["num"]),
+            type: "POST",
+            success: function (data) {
+                var options = "";
+                $.each(data, function (index, value) {
+                    options += '<option value="' + value.Id + '">' + value.Nombre + '</option>';
+                });
+                $("#primera-lista").html(options);
+            },
+            error: function () {
+                alert("error...");
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("getEmpresas")' + "?id=" + 1,
+                type: "POST",
+                success: function (data) {
+                    var options = "";
+                    $.each(data, function (index, value) {
+                        options += '<option value="' + value.Id + '">' + value.NombreEmpresa + '</option>';
+                    });
+                    $("#segunda-lista").html(options);
+                },
+                error: function () {
+                    alert("error...");
+                }
+            });
+
+            /*$("#primera-lista").change(function (selTag) {
+                //idSelected = $(this).val();
+                var perfil = selTag.options[selTag.selectedIndex].text;
+            });*/
+        });
+
+        function SetTextBoxValue(){
+            var combo = document.getElementById("primera-lista");
+            var selected = combo.options[combo.selectedIndex].text;
+
+            var comboEmpresa = document.getElementById("segunda-lista").value;
+            
+            //alert (selected);
+
+            var currentObject = null;
+            currentObject = selected;
+
+            $(location).attr('href',"Menu/Menu?valor="+selected+"&valor2="+comboEmpresa);
+        }
+    </script>
+    
+    
+ 
+} 

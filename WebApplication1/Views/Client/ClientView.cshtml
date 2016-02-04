@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApplication1.Models.Client> 
+@using GridMvc.Html
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+    <title>ClientView</title>
+
+</head>
+<body>
+   <h1>Grid.MVC</h1>
+    <hr />
+    <div style="width:500px;">
+
+        <label for="archivo">Archivo:</label>
+
+        @using (Html.BeginForm("ClientView", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @*   @Html.TextBox("file", "", new { type = "file" }) *@
+            <input type="file" name="archivo" value="browse" />
+            <input type="submit" value="Cargar" name="boton" />
+        }
+        
+
+        @Html.Grid(Model).Columns(columns =>
+                    {
+                        columns.Add(c => c.Serie).Titled("SERIE");
+                        columns.Add(c => c.Macaddress1).Titled("MACADDRESS2") ;
+
+                    }).WithPaging(10)
+    </div>
+
+</body>
+</html>

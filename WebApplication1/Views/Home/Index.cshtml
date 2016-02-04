@@ -1,0 +1,64 @@
+﻿@model WebApplication1.Models.Validacion
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="container">
+    <div class="row">
+        <div class="col-xs-0 col-md-4"></div>
+        <div class="contenedor col-xs-11 col-sm-10 col-md-4">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="identificar">
+                        <!--<div class="login">
+                            <p>Login</p>
+                        </div>-->
+                        <div class="contenedorcajas col-xs-12">
+                            <div class="usuario col-xs-12">
+                                <!--<div class="form-group">-->
+                                @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                <!--<div class="col-md-10">-->
+                                @Html.TextBoxFor(m => m.UserName, new { id = "man", @class = "cajas form-control", @placeholder = "Usuario" })
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="mensajes">
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
+                            <div class="password col-xs-12">
+                                <!--<div class="form-group">-->
+                                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                                <!--<div class="col-md-10">-->
+                                @Html.PasswordFor(m => m.Password, new { id = "lock", @class = "cajas form-control", @placeholder = "•••••••" })
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="mensajes">
+                                @Html.ValidationMessageFor(m => m.Password)
+                                @Html.ValidationSummary(true)
+                            </div>
+                        </div>
+                    </div>
+                <!--<div class="form-group boton">-->
+                    <!--<a class="activar" href="#">
+                        <span class="icon-chevron-right"></span>
+                    </a>-->
+                    <div class="activar col-xs-12">
+                        <span class="col-xs-3"></span>
+                        <input type="submit" value="Enviar" class="botonindex col-xs-6" />
+                        <span class="icon-chevron-right"></span>
+                    </div>
+                <!--</div>-->
+
+                }
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

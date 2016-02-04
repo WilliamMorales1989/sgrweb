@@ -1,0 +1,132 @@
+﻿@using GridMvc.Html
+@{
+    ViewBag.Title = "Creación Equipos";
+}
+@model IEnumerable<WebApplication1.Models.CreacionEquiposModels>
+<h2 class="Tituloh2">@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+
+<select id="Bodega-lista" name="select"></select>
+<select id="Tipo-lista"></select>
+<select id="Marca-lista"></select>
+<select id="Modelo-lista"></select>
+
+    <hr />
+    <label for="archivo">Archivo:</label>
+
+    @using (Html.BeginForm("Index", "CreacionEquipos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="archivo" value="browse" />
+        <input type="submit" value="Cargar" name="boton" />
+        <div class="gridCarga">
+            @Html.Grid(Model).AutoGenerateColumns()
+        </div>
+    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        @using System.Web.Script.Serialization
+    $(document).on("ready", function () {
+
+        $.ajax({
+            url: '@Url.Action("getTipoEquipos")' + "?empresa=" + @Html.Encode(ViewData["EmpresaUsuario"]),
+            type: "POST",
+            success: function (data) {
+                var options = "";
+                $.each(data, function (index, value) {
+                    options += '<option value="' + value.Id + '">' + value.NombreTipoEquipo + '</option>';
+                });
+                $("#Tipo-lista").html(options);
+            },
+            error: function () {
+                alert("error...");
+            }
+        });
+        
+        $.ajax({
+            url: '@Url.Action("getBodegaUsuario")' + "?empresa=" + @Html.Encode(ViewData["EmpresaUsuario"]),
+            type: "POST",
+            success: function (data) {
+                var options = "";
+                $.each(data, function (index, value) {
+                    options += '<option value="' + value.CodAlmacen + '">' + value.NomAlmacen + '</option>';
+                });
+                $("#Bodega-lista").html(options);
+            },
+            error: function () {
+                alert("error...");
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("getEmpresas")' + "?id=" + 1,
+                type: "POST",
+                success: function (data) {
+                    var options = "";
+                    $.each(data, function (index, value) {
+                        options += '<option value="' + value.Id + '">' + value.NombreEmpresa + '</option>';
+                    });
+                    $("#segunda-lista").html(options);
+                },
+                error: function () {
+                    alert("error...");
+                }
+        });
+
+        $("#Tipo-lista").change(function () {
+            idSelected = $(this).val();
+            $.ajax({
+                url: '@Url.Action("getMarcaEquipos")' + "?idTipo=" + idSelected,
+                type: "POST",
+                success: function (data) {
+                    var options = "";
+                    $.each(data, function (index, value) {
+                        options += '<option value="' + value.IdMarca + '">' + value.NomMarca + '</option>';
+                    });
+                    $("#Marca-lista").html(options);
+                },
+                error: function () {
+                    alert("error...");
+                }
+                });
+        });
+
+        $("#Marca-lista").change(function () {
+            idSelected = $(this).val();
+            $.ajax({
+                url: '@Url.Action("getModeloEquipos")' + "?idTipo=" + idSelected,
+                type: "POST",
+                success: function (data) {
+                    var options = "";
+                    $.each(data, function (index, value) {
+                        options += '<option value="' + value.IdModelo + '">' + value.NomModelo + '</option>';
+                    });
+                    $("#Modelo-lista").html(options);
+                },
+                error: function () {
+                    alert("error...");
+                }
+            });
+        });
+
+        });
+
+        function SetTextBoxValue(){
+            var combo = document.getElementById("primera-lista");
+            var selected = combo.options[combo.selectedIndex].text;
+
+            var comboEmpresa = document.getElementById("segunda-lista");
+            var valorCombo = comboEmpresa.options[comboEmpresa.selectedIndex].text;
+            //alert (selected);
+
+            var currentObject = null;
+            currentObject = selected;
+
+            $(location).attr('href',"Menu/Menu?valor="+selected+"&valor2="+valorCombo);
+        }
+    </script>
+
+} 

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/SGRConsultas/" name="SGRConsultas" targetNamespace="http://www.example.org/SGRConsultas/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/SGRConsultas/">
+      <xsd:element name="EmpresaXUsuario">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="usuario" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EmpresaXUsuarioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="unbounded" name="respuesta" type="tns:EmpresaUsuario" />
+            <xsd:element name="coderror" type="xsd:string" />
+            <xsd:element name="detailerror" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="EmpresaUsuario">
+        <xsd:sequence>
+          <xsd:element name="CodEmpresa" type="xsd:string" />
+          <xsd:element name="NomEmpresa" type="xsd:string" />
+          <xsd:element name="NomUsuario" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="EquiposXEmpresa">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Empresa" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EquiposXEmpresaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="unbounded" name="respuesta" type="tns:EmpresaEquipo" />
+            <xsd:element name="codError" type="xsd:string" />
+            <xsd:element name="detailError" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="EmpresaEquipo">
+        <xsd:sequence>
+          <xsd:element name="codempresa" type="xsd:string" />
+          <xsd:element name="nomempresa" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="equipos" type="tns:Equipos" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Equipos">
+        <xsd:sequence>
+          <xsd:element name="codequipo" type="xsd:string" />
+          <xsd:element name="nomequipo" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BodegasXUsuario">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="usuario" type="xsd:string" />
+            <xsd:element name="empresa" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BodegasXUsuarioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="unbounded" name="respuesta" type="tns:EmpresaBodegas" />
+            <xsd:element name="codError" type="xsd:string" />
+            <xsd:element name="detailError" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="EmpresaBodegas">
+        <xsd:sequence>
+          <xsd:element name="codEmpresa" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="almacenes" type="tns:Bodegas" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Bodegas">
+        <xsd:sequence>
+          <xsd:element name="codAlmacen" type="xsd:string" />
+          <xsd:element name="nomAlmacen" type="xsd:string" />
+          <xsd:element name="Ciudad" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ModelosXMarca">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="idempresa" type="xsd:string" />
+            <xsd:element name="idtipo" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ModelosXMarcaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="respuesta" type="tns:EmpresaMarcaTipoModelo" />
+            <xsd:element name="coderror" type="xsd:string" />
+            <xsd:element name="detailerror" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ModeloEquipos">
+        <xsd:sequence>
+          <xsd:element name="idmodelo" type="xsd:string" />
+          <xsd:element name="nommodelo" type="xsd:string" />
+          <xsd:element name="codarticulo" type="xsd:string" />
+          <xsd:element name="nomarticulo" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TipoEquipo">
+        <xsd:sequence>
+          <xsd:element name="idtipoequipo" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="marcas" type="tns:Marcas" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Marcas">
+        <xsd:sequence>
+          <xsd:element name="idmarca" type="xsd:string" />
+          <xsd:element name="nommarca" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="modelos" type="tns:ModeloEquipos" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmpresaMarcaTipoModelo">
+        <xsd:sequence>
+          <xsd:element name="idempresa" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="tiposequipos" type="tns:TipoEquipo" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="EmpresaXUsuarioRequest">
+    <wsdl:part name="parameters" element="tns:EmpresaXUsuario" />
+  </wsdl:message>
+  <wsdl:message name="ModelosXMarcaRequest">
+    <wsdl:part name="parameters" element="tns:ModelosXMarca" />
+  </wsdl:message>
+  <wsdl:message name="EmpresaXUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:EmpresaXUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="BodegasXUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:BodegasXUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="EquiposXEmpresaRequest">
+    <wsdl:part name="parameters" element="tns:EquiposXEmpresa" />
+  </wsdl:message>
+  <wsdl:message name="EquiposXEmpresaResponse">
+    <wsdl:part name="parameters" element="tns:EquiposXEmpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModelosXMarcaResponse">
+    <wsdl:part name="parameters" element="tns:ModelosXMarcaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BodegasXUsuarioRequest">
+    <wsdl:part name="parameters" element="tns:BodegasXUsuario" />
+  </wsdl:message>
+  <wsdl:portType name="SGRConsultas">
+    <wsdl:operation name="EmpresaXUsuario">
+      <wsdl:input message="tns:EmpresaXUsuarioRequest" />
+      <wsdl:output message="tns:EmpresaXUsuarioResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="EquiposXEmpresa">
+      <wsdl:input message="tns:EquiposXEmpresaRequest" />
+      <wsdl:output message="tns:EquiposXEmpresaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="BodegasXUsuario">
+      <wsdl:input message="tns:BodegasXUsuarioRequest" />
+      <wsdl:output message="tns:BodegasXUsuarioResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ModelosXMarca">
+      <wsdl:input message="tns:ModelosXMarcaRequest" />
+      <wsdl:output message="tns:ModelosXMarcaResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SGRConsultasSOAP" type="tns:SGRConsultas">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EmpresaXUsuario">
+      <soap:operation soapAction="http://www.example.org/SGRConsultas/EmpresaXUsuario" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EquiposXEmpresa">
+      <soap:operation soapAction="http://www.example.org/SGRConsultas/EquiposXEmpresa" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BodegasXUsuario">
+      <soap:operation soapAction="http://www.example.org/SGRConsultas/BodegasXUsuario" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelosXMarca">
+      <soap:operation soapAction="http://www.example.org/SGRConsultas/ModelosXMarca" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SGRConsultas">
+    <wsdl:port name="SGRConsultasSOAP" binding="tns:SGRConsultasSOAP">
+      <soap:address location="http://192.168.21.152:8080/SGRConsultas/SGRConsultas" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

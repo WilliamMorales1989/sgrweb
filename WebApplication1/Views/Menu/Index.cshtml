@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Menu";
+}
+
+<h2 class="Tituloh2">@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+    <div id="menucontainer">
+
+        <h2>@Html.Encode(ViewData["titulo"])</h2>
+        <ul id="menu">
+            @{
+                var menus = new[]
+                {
+                   new { LinkText="Creación de Equipos", ActionName="Index",ControllerName="CreacionEquipos",Roles="Administrador SGR"  },
+                   new { LinkText="About", ActionName="About",ControllerName="Home",Roles="Produccion SGR"  },
+                   new { LinkText="Contact", ActionName="Contact",ControllerName="Home",Roles="Produccion SGR"  },
+                   new { LinkText="Dashboard", ActionName="Index",ControllerName="Dealer",Roles="Produccion SGR"  },
+                   new { LinkText="Dashboard", ActionName="Index",ControllerName="Admin",Roles="Administrador SGR"  },
+                   new { LinkText="Administration", ActionName="GetUsers",ControllerName="Admin",Roles="Administrador SGR"  },
+                   new { LinkText="My Profile", ActionName="GetDealerInfo",ControllerName="Dealer",Roles="Usuarionegocio SGR,Administrador SGR"  },
+                   new { LinkText="Products", ActionName="GetProducts",ControllerName="Product",Roles="Produccion SGR,Administrador SGR"  },
+                   new { LinkText="Search", ActionName="SearchProducts",ControllerName="Product",Roles="Usuarionegocio SGR,Produccion SGR,Administrador SGR"  },
+                   new { LinkText="Purchase History", ActionName="GetHistory",ControllerName="Product",Roles="Usuarionegocio SGR"  },
+
+                };
+            }
+
+            @if (1 == 1)
+            {
+                string rol = ViewData["titulo"].ToString();
+                String roles = rol;
+                var links = from item in menus
+                            where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                            .Any(x => roles.Contains(x) || x == "All")
+                            select item;
+                foreach (var link in links)
+                {
+                    @:
+                    <li> @Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName)</li>
+                }
+            }
+            else
+            {
+                var links = from item in menus
+                            where item.Roles.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                            .Any(x => new String[] { "All", "Anonymous" }.Contains(x))
+                            select item;
+                foreach (var link in links)
+                {
+                    @:
+                    <li> @Html.ActionLink(link.LinkText, link.ActionName, link.ControllerName)</li>
+                }
+            }
+        </ul>
+    </div>

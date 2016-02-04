@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Combo Categoria";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<select id="primera-lista"></select>
+<select id="segunda-lista"></select>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).on("ready", function () {
+
+            $.ajax({
+                url: '@Url.Action("getCategorias")',
+                type: "POST",
+                success: function (data) {
+                    var options = "";
+                    $.each(data, function (index, value) {
+                        options += '<option value="' + value.Id + '">' + value.Title + '</option>';
+                    });
+                    $("#primera-lista").html(options);
+                },
+                error: function () {
+                    alert("error...");
+                }
+            });
+
+            $.ajax({
+                url: '@Url.Action("getEmpresas")' + "?id=" + 1,
+                type: "POST",
+                success: function (data) {
+                    var options = "";
+                    $.each(data, function (index, value) {
+                        options += '<option value="' + value.id + '">' + value.nombre + '</option>';
+                    });
+                    $("#segunda-lista").html(options);
+                },
+                error: function () {
+                    alert("error...");
+                }
+            });
+
+            $("#primera-lista").change(function () {
+                idSelected = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("getEmpresas")' + "?id=" + idSelected,
+                    type: "POST",
+                    success: function (data) {
+                        var options = "";
+                        $.each(data, function (index, value) {
+                            options += '<option value="' + value.id + '">' + value.nombre + '</option>';
+                        });
+                        $("#segunda-lista").html(options);
+                    },
+                    error: function () {
+                        alert("error...");
+                    }
+                });
+            });
+        });
+    </script>
+} 

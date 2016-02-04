@@ -1,0 +1,68 @@
+﻿@charset "UTF-8";
+a:hover{
+    color: #000 !important;
+}
+h1{
+    font-weight: bold;
+}
+.imglogo{
+    width:120px;
+    padding:0.5em;
+}
+.identificar{
+    margin-top: 5em;
+    clear: both;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.contenedor{
+    margin-top: 5%;
+}
+.activar{
+    margin-top: 3em;
+}
+.login{
+    background-color:#00BBDD;
+    color: #fff;
+    margin-top: 4em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.botonindex{
+    color: #fff;
+    background-color: #00BBDD;
+    border: hidden;
+    padding: 1em 2em 1em 2em;
+    text-align: center;
+    font-weight: bold;
+}
+.cajas{
+    width: 100%;
+    text-indent: 1em;   
+}
+.mensajes{
+    color: #FF655E;
+    margin-bottom: 1em;
+}
+.usuario, .password{
+    margin-bottom: 2em;
+}
+.perfilEnviar{
+    background-color: #00BBDD !important;
+    padding: 0.5em 1em 0.5em 1em;
+    color: #fff;
+}
+.perfilEnviar:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff !important;
+}
+.gridCarga{
+    height: 300px;
+    overflow: scroll;
+}

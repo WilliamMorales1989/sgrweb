@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Aprovisionamiento/" name="Aprovisionamiento" targetNamespace="http://www.example.org/Aprovisionamiento/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/Aprovisionamiento/">
+      <xsd:element name="Aprovisionamiento">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="HeaderRequest" type="tns:HeaderRequest" />
+            <xsd:element name="BodyRequest" type="tns:BodyRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AprovisionamientoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="HeaderResponse" type="tns:HeaderResponse" />
+            <xsd:element name="BodyResponse" type="tns:BodyResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="HeaderRequest">
+        <xsd:sequence>
+          <xsd:element name="Aplicacion" type="xsd:string" />
+          <xsd:element name="System" type="xsd:string" />
+          <xsd:element name="Controller" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BodyRequest">
+        <xsd:sequence>
+          <xsd:element name="Serie" type="xsd:string" />
+          <xsd:element name="MacAddress1" type="xsd:string" />
+          <xsd:element name="MacAddress2" type="xsd:string" />
+          <xsd:element name="IdUsuario" type="xsd:int" />
+          <xsd:element name="IdEmpresa" type="xsd:int" />
+          <xsd:element name="DeviceModel" type="xsd:int" />
+          <xsd:element name="NombreCiudad" type="xsd:string" />
+          <xsd:element name="Bodega" type="xsd:string" />
+          <xsd:element name="CodigoArticulo" type="xsd:string" />
+          <xsd:element name="Usuario" type="xsd:string" />
+          <xsd:element name="IdRestype" type="xsd:string" />
+          <xsd:element name="Tipo" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="HeaderResponse">
+        <xsd:sequence>
+          <xsd:element name="Aplicacion" type="xsd:string" />
+          <xsd:element name="System" type="xsd:string" />
+          <xsd:element name="Controller" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BodyResponse">
+        <xsd:sequence>
+          <xsd:element name="Serie" type="xsd:string" />
+          <xsd:element name="IdUsuario" type="xsd:string" />
+          <xsd:element name="ErrorCode" type="xsd:string" />
+          <xsd:element name="ErrorMessagge" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AprovisionamientoRequest">
+    <wsdl:part name="parameters" element="tns:Aprovisionamiento" />
+  </wsdl:message>
+  <wsdl:message name="AprovisionamientoResponse">
+    <wsdl:part name="parameters" element="tns:AprovisionamientoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Aprovisionamiento">
+    <wsdl:operation name="Aprovisionamiento">
+      <wsdl:input message="tns:AprovisionamientoRequest" />
+      <wsdl:output message="tns:AprovisionamientoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AprovisionamientoSOAP" type="tns:Aprovisionamiento">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Aprovisionamiento">
+      <soap:operation soapAction="http://www.example.org/Aprovisionamiento/Aprovisionamiento" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Aprovisionamiento">
+    <wsdl:port name="AprovisionamientoSOAP" binding="tns:AprovisionamientoSOAP">
+      <soap:address location="http://192.168.21.152:8080/Aprovisionamiento/Aprovisionamiento" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
